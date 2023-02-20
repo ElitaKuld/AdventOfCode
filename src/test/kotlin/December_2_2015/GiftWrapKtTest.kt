@@ -13,7 +13,11 @@ class GiftWrapKtTest {
     val cuboid3 = RectangularPrism(11, 4, 11)
     val listOfRectangularPrisms = listOf(cuboid, cuboid2, cuboid3)
     val listOfTotalPaperForEachGift = listOf(1402, 3632, 462)
-    val listOfTotalBowLength = listOf(4*23*21,22*29*19,11*4*11)
+    val listOfTotalBowLength = listOf(4 * 23 * 21, 22 * 29 * 19, 11 * 4 * 11)
+    val listOfSideMeasurements = listOf(2, 3, 4)
+    val listOfSideMeasurements2 = listOf(1, 1, 10)
+    val listOfSideMeasurements3 = listOf(1, 1, 1)
+    val newListOfSideMeasurements = listOf(4, 21)
 
     @Test
     fun readFileToListTest() {
@@ -62,5 +66,29 @@ class GiftWrapKtTest {
         Assertions.assertTrue(getTotalLengthOfBowList(listOfRectangularPrisms)[0] == listOfTotalBowLength[0])
         Assertions.assertTrue(getTotalLengthOfBowList(listOfRectangularPrisms)[1] == 12122)
         Assertions.assertTrue(getTotalLengthOfBowList(listOfRectangularPrisms)[2] != 461)
+    }
+
+    @Test
+    fun highestSideMeasurementOutTest() {
+        Assertions.assertEquals(highestSideMeasurementOut(listOfSideMeasurements).size, 2)
+        Assertions.assertTrue(highestSideMeasurementOut(listOfSideMeasurements).contains(2))
+        Assertions.assertTrue(highestSideMeasurementOut(listOfSideMeasurements).contains(3))
+        Assertions.assertFalse(highestSideMeasurementOut(listOfSideMeasurements).contains(4))
+        Assertions.assertEquals(highestSideMeasurementOut(listOfSideMeasurements2).size, 2)
+        Assertions.assertTrue(highestSideMeasurementOut(listOfSideMeasurements2).contains(1))
+        Assertions.assertTrue(highestSideMeasurementOut(listOfSideMeasurements2).contains(10))
+        Assertions.assertEquals(highestSideMeasurementOut(listOfSideMeasurements3).size, 2)
+        Assertions.assertTrue(highestSideMeasurementOut(listOfSideMeasurements3).contains(1))
+        Assertions.assertTrue(
+            highestSideMeasurementOut(listOfSideMeasurements3)[0] == highestSideMeasurementOut(
+                listOfSideMeasurements3
+            )[1]
+        )
+    }
+
+    @Test
+    fun getRequiredRibbonLengthTest() {
+        Assertions.assertTrue(getRequiredRibbonLength(newListOfSideMeasurements) == 50)
+        Assertions.assertFalse(getRequiredRibbonLength(newListOfSideMeasurements) == 25)
     }
 }
