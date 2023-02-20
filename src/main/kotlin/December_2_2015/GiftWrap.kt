@@ -76,7 +76,7 @@ fun getRequiredRibbonLength(newListOfSideMeasurements: List<Int>): Int {
 
 fun main() {
     val filePathname = "src/main/kotlin/December_2_2015/data.txt"
-    val listOfData = readFileToList(filePathname) // read data into a lis
+    val listOfData = readFileToList(filePathname) // read data into a list
     println(listOfData.size)
     println(listOfData)
 
@@ -107,23 +107,4 @@ fun main() {
     println(totalRibbonLength)
     val finalTotal = totalBowLength + totalRibbonLength // get the answer by adding bow length to ribbon length
     println("Answer B: $finalTotal")
-
-    // Övertänkt/missförstått lösning:
-    /*
-    listOfSideMeasurementsOfEveryPrism.forEach { println(highestSideMeasurementOut(it)) }
-    for (i in listOfSideMeasurementsOfEveryPrism.indices) { // add the length of each present's ribbon to a list
-        listOfRequiredRibbonLength.add(
-            getRequiredRibbonLength(
-                highestSideMeasurementOut(
-                    listOfSideMeasurementsOfEveryPrism[i]
-                )
-            )
-        )
-    }
-    println(listOfRequiredRibbonLength)
-    val totalRibbonLength = listOfRequiredRibbonLength.sum() // get the total length for all the presents
-    println(totalRibbonLength)
-    val finalTotal = totalBowLength + totalRibbonLength
-    println("Answer B: $finalTotal")*/
-
 }
