@@ -149,6 +149,6 @@ fun main() {
 
     // 2838 too high
     // 2650 too high
-    // 2639 is the right answer!!! I GOT YOU! YEY!!
+    // 2639 is the right answer!!! I GOT YOU! YAY!!
 
 }

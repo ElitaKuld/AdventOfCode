@@ -45,16 +45,6 @@ fun String.sameLetterWithALetterInBetween(): Boolean {
     }
     return sameLetterWithALetter
 }
-/*
-fun String.overlaps(): Boolean {
-    var overlaps = false
-    for (i in 0 until this.lastIndex-1) {
-        if (this[i] == this[i + 1] && this[i] == this[i + 2])
-            overlaps = true
-    }
-    return overlaps
-}
- */
 
 fun String.overlaps(): Boolean {
     var overlaps = false
