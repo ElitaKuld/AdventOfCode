@@ -91,7 +91,6 @@ class NaughtyOrNiceStringKtTest {
         Assertions.assertTrue(string15.sameLetterWithALetterInBetween())
         Assertions.assertTrue(string16.sameLetterWithALetterInBetween())
         Assertions.assertFalse(string17.sameLetterWithALetterInBetween())
-
         Assertions.assertTrue("rxexcbwhiywwwwnu".sameLetterWithALetterInBetween())
     }
 
@@ -99,8 +98,7 @@ class NaughtyOrNiceStringKtTest {
     fun overlapsTest() {
         Assertions.assertTrue(string16.overlaps())
         Assertions.assertFalse(string18.overlaps())
-
-        Assertions.assertFalse("rxexcbwhiywwwwnu".overlaps()) // Fails the test!
+        Assertions.assertFalse("rxexcbwhiywwwwnu".overlaps()) // Failed the test the first time!
     }
 
     @Test
@@ -108,7 +106,6 @@ class NaughtyOrNiceStringKtTest {
         Assertions.assertTrue(string18.containsPairOfTwoLetters())
         Assertions.assertTrue(string19.containsPairOfTwoLetters())
         Assertions.assertFalse(string20.containsPairOfTwoLetters())
-
         Assertions.assertTrue("rxexcbwhiywwwwnu".containsPairOfTwoLetters())
     }
 

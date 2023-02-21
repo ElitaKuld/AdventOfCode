@@ -45,7 +45,7 @@ fun String.sameLetterWithALetterInBetween(): Boolean {
     }
     return sameLetterWithALetter
 }
-
+/*
 fun String.overlaps(): Boolean {
     var overlaps = false
     for (i in 0 until this.lastIndex-1) {
@@ -54,7 +54,16 @@ fun String.overlaps(): Boolean {
     }
     return overlaps
 }
-// "rxexcbwhiywwwwnu" failed the test
+ */
+
+fun String.overlaps(): Boolean {
+    var overlaps = false
+    for (i in 0 until this.lastIndex-1) {
+        if (this[i] == this[i + 1] && this[i] == this[i + 2] && !this.containsPairOfTwoLetters())
+            overlaps = true
+    }
+    return overlaps
+}
 
 fun String.containsPairOfTwoLetters(): Boolean {
     var containsPair = false
@@ -92,24 +101,7 @@ fun main() {
     val niceStringListPartTwo = mutableListOf<String>()
     for (i in 0..listOfData.lastIndex) if (listOfData[i].isNiceNewWay()) niceStringListPartTwo.add(listOfData[i])
     println(niceStringListPartTwo.size)
-
-
-    val dataToWorkWith = File("src/main/kotlin/December_5_2015/data.txt").readText() // String
-    val rightList = solvePartTwoWithList(dataToWorkWith)
-
-    println(rightList.filter { string -> !niceStringListPartTwo.contains(string) })
 }
-
-fun solvePartTwoWithList(input: String) = input
-    .lineSequence()
-    .filter { string -> string.windowed(3).any { it[0] == it[2] } }
-    .filter { string ->
-        string.windowedSequence(2)
-            .withIndex()
-            .any { (i, v) -> v in string.substring(i + 2) }
-    }
-    .toList()
-
 
 // not 50
 // 51 is the answer
