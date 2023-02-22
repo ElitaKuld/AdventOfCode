@@ -26,7 +26,6 @@ fun turnListOfDataIntoListOfInstructions(listOfData: List<String>): List<Instruc
                 rowValueB = data.substring(data.lastIndexOf(",") + 1).toInt()
             )
         )
-
     }
     return listOfInstructions
 }
@@ -67,7 +66,7 @@ fun changeLevelOfBrightness(instruction: Instruction, gridOfLights: Array<Array<
     if (instruction.action == "turn on") {
         for (i in columnToBegin..columnToEnd) {
             for (j in rowToBegin..rowToEnd) {
-                gridOfLights[i][j].brightnessLevel+=1
+                gridOfLights[i][j].brightnessLevel += 1
             }
         }
     }
@@ -75,7 +74,7 @@ fun changeLevelOfBrightness(instruction: Instruction, gridOfLights: Array<Array<
         for (i in columnToBegin..columnToEnd) {
             for (j in rowToBegin..rowToEnd) {
                 if (gridOfLights[i][j].brightnessLevel > 0)
-                    gridOfLights[i][j].brightnessLevel-=1
+                    gridOfLights[i][j].brightnessLevel -= 1
             }
         }
     }
@@ -92,8 +91,6 @@ fun main() {
     // Del A:
     val filePathname = "src/main/kotlin/December_6_2015/data.txt"
     val listOfData = readFileToList(filePathname) // read data into a list
-    println("Antal instruktioner: " + listOfData.size)
-    println(listOfData)
 
     val column = 1000
     val row = 1000
@@ -109,7 +106,6 @@ fun main() {
     }
 
     var numberOfLightsLit = 0
-
     for (i in gridOfLights.indices) {
         for (j in 0 until gridOfLights[i].size) {
             if (gridOfLights[i][j].lightIsLit) {
@@ -117,24 +113,23 @@ fun main() {
             }
         }
     }
-
-    println("Antal tända lampor: $numberOfLightsLit")
+    println("How many lights are lit?: $numberOfLightsLit")
 
     // Correct!!! Yay!
 
+
+    // Del B:
     for (i in listOfInstructions.indices) {
         changeLevelOfBrightness(listOfInstructions[i], gridOfLights)
     }
 
     var totalLevelOfBrightness = 0
-
     for (i in gridOfLights.indices) {
         for (j in 0 until gridOfLights[i].size) {
             totalLevelOfBrightness += gridOfLights[i][j].brightnessLevel
         }
     }
-
-    println("Total brightness: $totalLevelOfBrightness")
+    println("What is the total brightness of all lights combined after following Santa's instructions?: $totalLevelOfBrightness")
 
     // That's the right answer! You are one gold star closer to powering the weather machine.
 }

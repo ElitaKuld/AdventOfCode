@@ -98,7 +98,7 @@ class NaughtyOrNiceStringKtTest {
     fun overlapsTest() {
         Assertions.assertTrue(string16.overlaps())
         Assertions.assertFalse(string18.overlaps())
-        Assertions.assertFalse("rxexcbwhiywwwwnu".overlaps()) // Failed the test the first time!
+        Assertions.assertFalse("rxexcbwhiywwwwnu".overlaps()) // This naughty String has failed the test the first time!
     }
 
     @Test
@@ -118,16 +118,3 @@ class NaughtyOrNiceStringKtTest {
         Assertions.assertTrue("rxexcbwhiywwwwnu".isNiceNewWay())
     }
 }
-
-/*
-qjhvhtzxzqqjkmpb is nice because is has a pair that appears twice (qj) and a letter that repeats with exactly one letter between them (zxz).
-xxyxx is nice because it has a pair that appears twice and a letter that repeats with one between, even though the letters used by each rule overlap.
-uurcxstgmygtbstg is naughty because it has a pair (tg) but no repeat with a single letter between them.
-ieodomkazucvgmuy is naughty because it has a repeating letter with one between (odo), but no pair that appears twice.
- */
-/*
-    val string21 = "qjhvhtzxzqqjkmpb"
-    val string22 = "xxyxx"
-    val string23 = "uurcxstgmygtbstg"
-    val string24 = "ieodomkazucvgmuy"
- */

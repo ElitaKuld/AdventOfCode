@@ -78,20 +78,18 @@ fun main() {
 
     val filePathname = "src/main/kotlin/December_5_2015/data.txt"
     val listOfData = readFileToList(filePathname) // read data into a list
-    println(listOfData.size)
-    println(listOfData)
 
     // Del A:
     val niceStringList = mutableListOf<String>()
     for (i in 0..listOfData.lastIndex) if (listOfData[i].isNice()) niceStringList.add(listOfData[i])
-    println(niceStringList.size)
+    println("How many strings are nice?: " + niceStringList.size)
     // CORRECT!!!
 
     // Del B:
     val niceStringListPartTwo = mutableListOf<String>()
     for (i in 0..listOfData.lastIndex) if (listOfData[i].isNiceNewWay()) niceStringListPartTwo.add(listOfData[i])
-    println(niceStringListPartTwo.size)
+    println("How many strings are nice under these new rules?: " + niceStringListPartTwo.size)
 }
 
 // not 50
-// 51 is the answer
+// 51 is the right answer!
