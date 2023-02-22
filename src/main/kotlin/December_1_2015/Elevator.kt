@@ -2,17 +2,17 @@ package December_1_2015
 
 import java.io.File
 
-fun countLeftParenthesis(text: List<Char>): Int = text.filter { it != ')' }.size
+fun countLeftParenthesis(text: String): Int = text.count { it == '(' }
 
-fun countRightParenthesis(text: List<Char>): Int = text.filter { it != '(' }.size
+fun countRightParenthesis(text: String): Int = text.count { it == ')' }
 
 fun getFloorNumberByComparing(parenthesisLeft: Int, parenthesisRight: Int) = parenthesisLeft - parenthesisRight
 
-fun getFirstPositionOfBasement(text: List<Char>): Int {
+fun getFirstPositionOfBasement(text: String): Int {
     var leftP = 0
     var rightP = 0
     val position = 0
-    for (i in 0..text.size) {
+    for (i in 0..text.length) {
         if (text[i] == '(') {
             leftP++
             if (rightP > leftP) return i + 1
@@ -29,16 +29,15 @@ fun getFirstPositionOfBasement(text: List<Char>): Int {
 fun main() {
 
     val dataToWorkWith = File("src/main/kotlin/December_1_2015/data.txt").readText() // String
-    val listOfData = dataToWorkWith.toList()
-    println(listOfData.size)
+    println("Antal instruktioner: " + dataToWorkWith.length)
 
     // Del A:
-    val parenthesisLeft = countLeftParenthesis(listOfData)
-    val parenthesisRight = countRightParenthesis(listOfData)
+    val parenthesisLeft = countLeftParenthesis(dataToWorkWith)
+    val parenthesisRight = countRightParenthesis(dataToWorkWith)
     val floorNumber = getFloorNumberByComparing(parenthesisLeft, parenthesisRight)
-    println(floorNumber)
+    println("Instructions took Santa to the floor number: $floorNumber")
 
     // Del B:
-    val position = getFirstPositionOfBasement(listOfData)
-    println(position)
+    val position = getFirstPositionOfBasement(dataToWorkWith)
+    println("The position of the character that causes Santa to first enter the basement: $position")
 }

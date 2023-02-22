@@ -6,23 +6,23 @@ import org.junit.jupiter.api.Test
 
 class ElevatorKtTest {
 
-    val listOfData = listOf('(', ')', '(', '(', '(', '(', ')', ')') // 5 '(' 3 ')'
-    val listOfData2 = listOf('(', ')', '(', '(', '(', '(', ')', ')', ')', ')', ')') // 5 '(' 6 ')'
+    val data = ("()(((())") // 5 '(' 3 ')'
+    val data2 = ("()(((()))))") // 5 '(' 6 ')'
     val parenthesisLeft = 5
     val parenthesisRight = 3
 
     @Test
     fun countLeftParenthesisTest() {
-        Assertions.assertEquals(countLeftParenthesis(listOfData), 5)
-        Assertions.assertFalse(countLeftParenthesis(listOfData) == 3)
-        Assertions.assertFalse(countLeftParenthesis(listOfData) == 8)
+        Assertions.assertEquals(countLeftParenthesis(data), 5)
+        Assertions.assertFalse(countLeftParenthesis(data) == 3)
+        Assertions.assertFalse(countLeftParenthesis(data) == 8)
     }
 
     @Test
     fun countRightParenthesisTest() {
-        Assertions.assertEquals(countRightParenthesis(listOfData), 3)
-        Assertions.assertFalse(countRightParenthesis(listOfData) == 5)
-        Assertions.assertFalse(countRightParenthesis(listOfData) == 8)
+        Assertions.assertEquals(countRightParenthesis(data), 3)
+        Assertions.assertFalse(countRightParenthesis(data) == 5)
+        Assertions.assertFalse(countRightParenthesis(data) == 8)
     }
 
     @Test
@@ -33,7 +33,7 @@ class ElevatorKtTest {
 
     @Test
     fun getFirstPositionOfBasementTest() {
-        Assertions.assertTrue(getFirstPositionOfBasement(listOfData2) == 11)
-        Assertions.assertFalse(getFirstPositionOfBasement(listOfData2) == 10)
+        Assertions.assertTrue(getFirstPositionOfBasement(data2) == 11)
+        Assertions.assertFalse(getFirstPositionOfBasement(data2) == 10)
     }
 }
