@@ -36,4 +36,10 @@ class ElevatorKtTest {
         Assertions.assertTrue(getFirstPositionOfBasement(data2) == 11)
         Assertions.assertFalse(getFirstPositionOfBasement(data2) == 10)
     }
+
+    @Test
+    fun getFirstPositionOfBasementAfterTest() {
+        Assertions.assertTrue(getFirstPositionOfBasementAfter(data2) == 11)
+        Assertions.assertFalse(getFirstPositionOfBasementAfter(data2) == 10)
+    }
 }

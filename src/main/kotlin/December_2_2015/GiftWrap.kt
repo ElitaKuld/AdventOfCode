@@ -3,7 +3,6 @@ package December_2_2015
 import java.io.File
 import java.util.*
 
-
 fun readFileToList(pathname: String): List<String> {
     val scanner = Scanner(File(pathname))
     val list = mutableListOf<String>()
@@ -52,13 +51,27 @@ fun getRequiredRibbonLength(listOfRectangularPrisms: List<RectangularPrism>): In
     return listOfRequiredRibbonLength.sum()
 }
 
+// En "After-funktion" för Del A:
+fun getTotalSquareFeetOfPaperNeededAfter(listOfRectangularPrisms: List<RectangularPrism>): Int {
+    return listOfRectangularPrisms.sumOf {
+        3 * it.listOfSideMeasurements.min() * it.listOfSideMeasurements[1] +
+                2 * it.listOfSideMeasurements[1] * it.listOfSideMeasurements[2] + 2 * it.listOfSideMeasurements[2] * it.listOfSideMeasurements[0]
+    }
+}
+
+// En "After-funktion" för Del B:
+fun getRequiredBowAndRibbonLength(listOfRectangularPrisms: List<RectangularPrism>): Int {
+    return listOfRectangularPrisms.sumOf { 2*(it.listOfSideMeasurements[0] + it.listOfSideMeasurements[1]) +
+            it.listOfSideMeasurements[0] * it.listOfSideMeasurements[1] * it.listOfSideMeasurements[2]}
+}
+
 fun main() {
     val filePathname = "src/main/kotlin/December_2_2015/data.txt"
     val listOfData = readFileToList(filePathname) // read data into a list
+    val listOfRectangularPrisms =
+        createListOfRectangularPrisms(listOfData) // create a list of Rectangular Prisms using data from the file (för att jobba objektorienterat)
 
     // Del A:
-    val listOfRectangularPrisms =
-        createListOfRectangularPrisms(listOfData) // create a list of Rectangular Prisms using data from the file
     val totalSquareFeetOfPaper =
         getTotalSquareFeetOfPaperNeeded(listOfRectangularPrisms) // get gift wrap needed for all the presents
     println("How many total square feet of wrapping paper should they order?: $totalSquareFeetOfPaper")
@@ -70,4 +83,11 @@ fun main() {
 
     val finalTotal = totalBowLength + totalRibbonLength // get the answer by adding bow length to ribbon length
     println("How many total feet of ribbon should they order?: $finalTotal")
+
+    //------------------------------Solution After-----------------------------------------------------
+    // // En bättre lösning med hjälp av koden från följande repo: https://github.com/Ruud-Wiegers/advent-of-code/blob/master/y2015/src/main/kotlin/adventofcode/y2015/Day02.kt
+    // Del A:
+    println("How many total square feet of wrapping paper should they order?: " + getTotalSquareFeetOfPaperNeededAfter(listOfRectangularPrisms))
+    // Del B:
+    println("How many total feet of ribbon should they order?: " + getRequiredBowAndRibbonLength(listOfRectangularPrisms))
 }
