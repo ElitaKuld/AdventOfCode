@@ -2,6 +2,7 @@ package December_5_2015
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import java.io.File
 
 class NaughtyOrNiceStringKtTest {
     val filePathname = "src/main/kotlin/December_5_2015/testdata.txt"
@@ -39,6 +40,8 @@ class NaughtyOrNiceStringKtTest {
     val string22 = "xxyxx"
     val string23 = "uurcxstgmygtbstg"
     val string24 = "ieodomkazucvgmuy"
+
+    val dataToWorkWith = File("src/main/kotlin/December_5_2015/testdata.txt").readText() // String
 
     @Test
     fun readFileToListTest() {
@@ -116,5 +119,17 @@ class NaughtyOrNiceStringKtTest {
         Assertions.assertFalse(string23.isNiceNewWay())
         Assertions.assertFalse(string24.isNiceNewWay())
         Assertions.assertTrue("rxexcbwhiywwwwnu".isNiceNewWay())
+    }
+
+    @Test
+    fun countNiceStringsTest() {
+        Assertions.assertTrue(countNiceStrings(dataToWorkWith)==1)
+        Assertions.assertFalse(countNiceStrings(dataToWorkWith)==2)
+    }
+
+    @Test
+    fun countNiceStringsNewWayTest() {
+        Assertions.assertTrue(countNiceStringsNewWay(dataToWorkWith)==0)
+        Assertions.assertFalse(countNiceStringsNewWay(dataToWorkWith)==2)
     }
 }

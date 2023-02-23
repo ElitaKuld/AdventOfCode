@@ -48,7 +48,7 @@ fun String.sameLetterWithALetterInBetween(): Boolean {
 
 fun String.overlaps(): Boolean {
     var overlaps = false
-    for (i in 0 until this.lastIndex-1) {
+    for (i in 0 until this.lastIndex - 1) {
         if (this[i] == this[i + 1] && this[i] == this[i + 2] && !this.containsPairOfTwoLetters())
             overlaps = true
     }
@@ -74,6 +74,24 @@ fun readFileToList(pathname: String): List<String> {
     return list
 }
 
+// En "After-funktion" DEl A:
+fun countNiceStrings(dataToWorkWith: String) = dataToWorkWith.lineSequence()
+    .filter { string -> string.count { it in "aeiou" } >= 3 }
+    .filter { string -> string.zipWithNext().any { it.first == it.second } }
+    .filterNot { "ab" in it || "cd" in it || "pq" in it || "xy" in it }
+    .count()
+
+// En "After-funktion" DEl B:
+fun countNiceStringsNewWay(dataToWorkWith: String) = dataToWorkWith
+    .lineSequence()
+    .filter { string -> string.windowed(3).any { it[0] == it[2] } }
+    .filter { string ->
+        string.windowedSequence(2)
+            .withIndex()
+            .any { (i, v) -> v in string.substring(i + 2) }
+    }
+    .count()
+
 fun main() {
 
     val filePathname = "src/main/kotlin/December_5_2015/data.txt"
@@ -89,7 +107,16 @@ fun main() {
     val niceStringListPartTwo = mutableListOf<String>()
     for (i in 0..listOfData.lastIndex) if (listOfData[i].isNiceNewWay()) niceStringListPartTwo.add(listOfData[i])
     println("How many strings are nice under these new rules?: " + niceStringListPartTwo.size)
+
+    // not 50
+    // 51 is the right answer!
+
+    //------------------------------Solution After-----------------------------------------------------
+    // En annan lösning med hjälp av koden från följande repo: https://github.com/Ruud-Wiegers/advent-of-code/blob/master/y2015/src/main/kotlin/adventofcode/y2015/Day05.kt
+    // Del A:
+    val dataToWorkWith = File("src/main/kotlin/December_5_2015/data.txt").readText() // String
+    println("How many strings are nice?: " + countNiceStrings(dataToWorkWith))
+    // Del B:
+    println("How many strings are nice under these new rules?: " + countNiceStringsNewWay(dataToWorkWith))
 }
 
-// not 50
-// 51 is the right answer!

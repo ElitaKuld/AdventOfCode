@@ -1,6 +1,8 @@
 package December_5_2015
 
-import java.io.File
+// Kod som ska lära oss en bättre lösning:
+// https://github.com/Ruud-Wiegers/advent-of-code/blob/master/y2015/src/main/kotlin/adventofcode/y2015/Day05.kt
+
 
 fun solvePartOne(input: String) = input.lineSequence()
     .filter { string -> string.count { it in "aeiou" } >= 3 }
@@ -18,10 +20,3 @@ fun solvePartTwo(input: String) = input
             .any { (i, v) -> v in string.substring(i + 2) }
     }
     .count()
-
-
-fun main(){
-    val dataToWorkWith = File("src/main/kotlin/December_5_2015/data.txt").readText() // String
-    println(solvePartOne(dataToWorkWith))
-    println(solvePartTwo(dataToWorkWith))
-}
