@@ -61,4 +61,16 @@ class SphericalHousesKtTest {
         assertTrue(getGridWithVisitedBySantaHouses(dataToWorkWith, gridOfHouses2, column, row)[1][0].visited)
         assertFalse(getGridWithVisitedBySantaHouses(dataToWorkWith, gridOfHouses2, column, row)[0][0].visited)
     }
+
+    @Test
+    fun getNumberOfVisitedHousesTest() {
+        assertTrue(getNumberOfVisitedHouses(dataToWorkWith) == 4)
+        assertFalse(getNumberOfVisitedHouses(dataToWorkWith) == 3)
+    }
+
+    @Test
+    fun getNumberOfHousesVisitedBySantaAndRobotTest() {
+        assertTrue(getNumberOfHousesVisitedBySantaAndRobot(dataToWorkWith) == 3)
+        assertFalse(getNumberOfHousesVisitedBySantaAndRobot(dataToWorkWith) == 4)
+    }
 }

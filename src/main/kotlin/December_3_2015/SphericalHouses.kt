@@ -77,6 +77,59 @@ fun countNumberOfVisitedHouses(gridOfHouses: Array<Array<House>>): Int {
     return numberOfHousesVisited
 }
 
+// En "After-klass":
+sealed class Direction {
+    companion object {
+        const val UP = '^'
+        const val DOWN = 'v'
+        const val LEFT = '<'
+        const val RIGHT = '>'
+    }
+}
+
+// En "After-funktion" för Del A:
+fun getNumberOfVisitedHouses(dataToWorkWith: String): Int {
+    var x = 0
+    var y = 0
+
+    return dataToWorkWith.map {
+        when (it) {
+            Direction.UP -> y++
+            Direction.DOWN -> y--
+            Direction.LEFT -> x--
+            Direction.RIGHT -> x++
+        }
+        println("$x $y") // för att tydligt se vad som händer
+
+        x to y
+    }.plus(0 to 0).distinct().size
+}
+
+// En "After-funktion" för Del B:
+fun getNumberOfHousesVisitedBySantaAndRobot(dataToWorkWith: String): Int {
+    var santaX = 0
+    var santaY = 0
+    var robotX = 0
+    var robotY = 0
+    var counter = 0
+
+    return dataToWorkWith.map {
+        val isCounterEven = counter % 2 == 0
+
+        when (it) {
+            Direction.UP -> if (isCounterEven) santaY++ else robotY++
+            Direction.DOWN -> if (isCounterEven) santaY-- else robotY--
+            Direction.LEFT -> if (isCounterEven) santaX-- else robotX--
+            Direction.RIGHT -> if (isCounterEven) santaX++ else robotX++
+        }
+
+        counter++
+
+        if (isCounterEven) santaX to santaY
+        else robotX to robotY
+    }.plus(0 to 0).distinct().size
+}
+
 fun main() {
     // Del A:
     val dataToWorkWith = File("src/main/kotlin/December_3_2015/data.txt").readText() // String
@@ -106,4 +159,11 @@ fun main() {
     // 2838 too high
     // 2650 too high
     // 2639 is the right answer!!! I GOT YOU! YAY!!
+
+    //------------------------------Solution After-----------------------------------------------------
+    // // En annan lösning med hjälp av koden från följande repo: https://github.com/timakden/advent-of-code/blob/main/src/main/kotlin/ru/timakden/aoc/year2015/Day03.kt
+    // Del A:
+    println("How many houses receive at least one present?: ${getNumberOfVisitedHouses(dataToWorkWith)}")
+    // Del B:
+    println("Houses visited by Santa and Robot-Santa: ${getNumberOfHousesVisitedBySantaAndRobot(dataToWorkWith)}")
 }
