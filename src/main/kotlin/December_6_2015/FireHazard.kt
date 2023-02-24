@@ -87,6 +87,82 @@ fun changeLevelOfBrightness(instruction: Instruction, gridOfLights: Array<Array<
     }
 }
 
+// En "After-funktion" där jag använder mig av split istället för substring:
+fun turnListOfDataIntoListOfInstructionsAfter(listOfData: List<String>): List<Instruction> {
+    val listOfInstructions = mutableListOf<Instruction>()
+    val regex = "\\s(?!on|off)".toRegex()
+    for (data in listOfData) {
+        listOfInstructions.add(
+            Instruction(
+                action = data.split(regex)[0],
+                columnValueA = data.split(regex)[1].split(',')[0].toInt(),
+                rowValueA = data.split(regex)[1].split(',')[1].toInt(),
+                columnValueB = data.split(regex)[3].split(',')[0].toInt(),
+                rowValueB = data.split(regex)[3].split(',')[1].toInt(),
+            )
+        )
+    }
+    return listOfInstructions
+}
+
+
+// En "After-klass":
+sealed class ActionToDo {
+    companion object {
+        const val TURN_ON = "turn on"
+        const val TURN_OFF = "turn off"
+        const val TOGGLE = "toggle"
+    }
+}
+
+// En "After-funktion" (använder mig av "when" istället för 3 if-satser + Konstanter)
+fun setUpLightingAfter(instruction: Instruction, gridOfLights: Array<Array<Light>>) {
+    for (i in instruction.columnValueA..instruction.columnValueB) {
+        for (j in instruction.rowValueA..instruction.rowValueB) {
+            when (instruction.action) {
+                ActionToDo.TURN_ON -> gridOfLights[i][j].lightIsLit = true
+                ActionToDo.TURN_OFF -> gridOfLights[i][j].lightIsLit = false
+                ActionToDo.TOGGLE -> gridOfLights[i][j].lightIsLit = !gridOfLights[i][j].lightIsLit
+            }
+        }
+    }
+}
+
+// En "After-funktion" (använder mig av "when" istället för 3 if-satser + Konstanter)
+fun changeLevelOfBrightnessAfter(instruction: Instruction, gridOfLights: Array<Array<Light>>) {
+    for (i in instruction.columnValueA..instruction.columnValueB) {
+        for (j in instruction.rowValueA..instruction.rowValueB) {
+            when (instruction.action) {
+                ActionToDo.TURN_ON -> gridOfLights[i][j].brightnessLevel += 1
+                ActionToDo.TURN_OFF -> if (gridOfLights[i][j].brightnessLevel > 0) gridOfLights[i][j].brightnessLevel -= 1
+                ActionToDo.TOGGLE -> gridOfLights[i][j].brightnessLevel += 2
+            }
+        }
+    }
+}
+
+fun getNumberOfLightsLit(gridOfLights: Array<Array<Light>>): Int {
+    var numberOfLightsLit = 0
+    for (i in gridOfLights.indices) {
+        for (j in 0 until gridOfLights[i].size) {
+            if (gridOfLights[i][j].lightIsLit) {
+                numberOfLightsLit++
+            }
+        }
+    }
+    return numberOfLightsLit
+}
+
+fun getTotalLevelOfBrightness(gridOfLights: Array<Array<Light>>): Int {
+    var totalLevelOfBrightness = 0
+    for (i in gridOfLights.indices) {
+        for (j in 0 until gridOfLights[i].size) {
+            totalLevelOfBrightness += gridOfLights[i][j].brightnessLevel
+        }
+    }
+    return totalLevelOfBrightness
+}
+
 fun main() {
     // Del A:
     val filePathname = "src/main/kotlin/December_6_2015/data.txt"
@@ -97,39 +173,44 @@ fun main() {
 
     val gridOfLights = Array(column) { Array(row) { Light() } }
 
-    // Demonstration
     val listOfInstructions = turnListOfDataIntoListOfInstructions(listOfData)
-    for (i in listOfInstructions) println(i)
+    for (i in listOfInstructions) println(i) // Demonstration
 
     for (i in listOfInstructions.indices) {
         setUpLighting(listOfInstructions[i], gridOfLights)
     }
 
-    var numberOfLightsLit = 0
-    for (i in gridOfLights.indices) {
-        for (j in 0 until gridOfLights[i].size) {
-            if (gridOfLights[i][j].lightIsLit) {
-                numberOfLightsLit++
-            }
-        }
-    }
-    println("How many lights are lit?: $numberOfLightsLit")
-
-    // Correct!!! Yay!
-
+    println("How many lights are lit?: " + getNumberOfLightsLit(gridOfLights))
 
     // Del B:
     for (i in listOfInstructions.indices) {
         changeLevelOfBrightness(listOfInstructions[i], gridOfLights)
     }
 
-    var totalLevelOfBrightness = 0
-    for (i in gridOfLights.indices) {
-        for (j in 0 until gridOfLights[i].size) {
-            totalLevelOfBrightness += gridOfLights[i][j].brightnessLevel
-        }
-    }
-    println("What is the total brightness of all lights combined after following Santa's instructions?: $totalLevelOfBrightness")
+    println(
+        "What is the total brightness of all lights combined after following Santa's instructions?: " + getTotalLevelOfBrightness(
+            gridOfLights
+        )
+    )
 
-    // That's the right answer! You are one gold star closer to powering the weather machine.
+    //------------------------------Solution After-----------------------------------------------------
+    // En förbättrad lösning inspirerad av koden från följande repo:
+    // https://github.com/timakden/advent-of-code/blob/main/src/main/kotlin/ru/timakden/aoc/year2015/Day06.kt
+    // Del A:
+    val newListOfInstructions = turnListOfDataIntoListOfInstructionsAfter(listOfData)
+    val newGridOfLights = Array(column) { Array(row) { Light() } }
+    for (i in newListOfInstructions.indices) {
+        setUpLightingAfter(newListOfInstructions[i], newGridOfLights)
+    }
+    println("How many lights are lit?: " + getNumberOfLightsLit(newGridOfLights))
+
+    // Del B:
+    for (i in newListOfInstructions.indices) {
+        changeLevelOfBrightnessAfter(newListOfInstructions[i], newGridOfLights)
+    }
+    println(
+        "What is the total brightness of all lights combined after following Santa's instructions?: " + getTotalLevelOfBrightness(
+            newGridOfLights
+        )
+    )
 }

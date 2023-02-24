@@ -61,8 +61,10 @@ fun getTotalSquareFeetOfPaperNeededAfter(listOfRectangularPrisms: List<Rectangul
 
 // En "After-funktion" för Del B:
 fun getRequiredBowAndRibbonLength(listOfRectangularPrisms: List<RectangularPrism>): Int {
-    return listOfRectangularPrisms.sumOf { 2*(it.listOfSideMeasurements[0] + it.listOfSideMeasurements[1]) +
-            it.listOfSideMeasurements[0] * it.listOfSideMeasurements[1] * it.listOfSideMeasurements[2]}
+    return listOfRectangularPrisms.sumOf {
+        2 * (it.listOfSideMeasurements[0] + it.listOfSideMeasurements[1]) +
+                it.listOfSideMeasurements[0] * it.listOfSideMeasurements[1] * it.listOfSideMeasurements[2]
+    }
 }
 
 fun main() {
@@ -87,7 +89,11 @@ fun main() {
     //------------------------------Solution After-----------------------------------------------------
     // // En bättre lösning med hjälp av koden från följande repo: https://github.com/Ruud-Wiegers/advent-of-code/blob/master/y2015/src/main/kotlin/adventofcode/y2015/Day02.kt
     // Del A:
-    println("How many total square feet of wrapping paper should they order?: " + getTotalSquareFeetOfPaperNeededAfter(listOfRectangularPrisms))
+    println(
+        "How many total square feet of wrapping paper should they order?: " + getTotalSquareFeetOfPaperNeededAfter(
+            listOfRectangularPrisms
+        )
+    )
     // Del B:
     println("How many total feet of ribbon should they order?: " + getRequiredBowAndRibbonLength(listOfRectangularPrisms))
 }

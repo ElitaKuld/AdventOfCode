@@ -71,4 +71,14 @@ class FireHazardKtTest {
         assertTrue(gridOfLightsTest[1][1].brightnessLevel==2)
         assertTrue(gridOfLightsTest[2][2].brightnessLevel==2)
     }
+
+    @Test
+    fun turnListOfDataIntoListOfInstructionsAfterTest() {
+        assertEquals(turnListOfDataIntoListOfInstructionsAfter(listOfData).size, 5)
+        assertTrue(turnListOfDataIntoListOfInstructionsAfter(listOfData)[0].action == "toggle")
+        assertTrue(turnListOfDataIntoListOfInstructionsAfter(listOfData)[1].columnValueA == 370)
+        assertTrue(turnListOfDataIntoListOfInstructionsAfter(listOfData)[2].rowValueA == 858)
+        assertTrue(turnListOfDataIntoListOfInstructionsAfter(listOfData)[3].columnValueB == 865)
+        assertTrue(turnListOfDataIntoListOfInstructionsAfter(listOfData)[4].rowValueB == 993)
+    }
 }
